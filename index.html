@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="font-awesome.css">
+    <style media="screen">
+     *{
+        margin-top: 0;
+        padding: 0;
+        letter-spacing: 1px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-transform: capitalize;
+     }
+     body{
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:linear-gradient(45deg,#ff0 50%,#333 50%);
+     }
+     .container{
+        height: 520px;
+        width: 400px;
+        background-color: white;
+         border-radius: 10px;
+         box-shadow: 0px 6px 40px rgba(0, 0, 0,0.5);
+         padding: 10px;
+         color: black;
+         overflow-y: auto;
+     }
+     .input{
+        height: 50px;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        background-color: black;
+        margin: 10px 0;
+        color: white;
+     }
+     input::placeholder{
+        padding: 10px;
+        color: white;
+     }
+     ul li{
+        background: rgb(187, 183, 183);
+        border-radius: 10px;
+        height: 40px;
+        margin: 10px 0;
+        padding: 10px;
+
+     }
+     ul .fa-check,.fa-trash{
+        cursor: pointer;
+     }
+     ul .fa-check{
+        color: green;
+        margin-right: 5px;
+        font-size: 25px;
+     }
+     ul .fa-trash{
+        color: red;
+       float: right;
+       padding-top: 3px;
+       font-size: 25px;
+     }
+     ul .checked{
+        text-decoration: line-through;
+        background-color: lightgreen;
+        transition: .2s;
+     }
+    </style>
+    <title>Document</title>
+ 
+</head>
+<body>
+      <div class="container">
+        <input type="text" placeholder="Press Enter to add Text" class="input">
+       <ul></ul>
+      </div>
+
+
+
+
+
+
+
+
+</body>
+  <script src="https://example.com/fontawesome/v6.3.0/js/fontawesome.js" data-auto-replace-svg="nest"></script>
+  <script src="https://example.com/fontawesome/v6.3.0/js/solid.js"></script>
+  <script src="https://example.com/fontawesome/v6.3.0/js/brands.js"></script>
+
+<script src="jquery-3.6.3.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    
+    $('.input').change(function(){
+     var task=$(this).val();
+       $('ul').append('<li> <i class="fa fa-check" aria-hidden="true"></i></i>' + task +'<i class="fa fa-trash" aria-hidden="true"></i></li>');
+       $(this).val('');
+    });
+ });
+
+$('ul').on('click','.fa-trash',function(){
+    $(this).parent('li').fadeOut(200);
+});
+
+$('ul').on('click','.fa-check',function(){
+    $(this).parent('li').toggleClass('checked');
+});
+
+
+</script>
+</html>
