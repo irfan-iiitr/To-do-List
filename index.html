@@ -32,7 +32,7 @@
          color: black;
          overflow-y: auto;
      }
-     .input{
+     #input{
         height: 50px;
         width: 100%;
         border-radius: 10px;
@@ -46,7 +46,7 @@
         color: white;
      }
      ul li{
-        background: rgb(187, 183, 183);
+        background:lightgrey;
         border-radius: 10px;
         height: 40px;
         margin: 10px 0;
@@ -67,19 +67,20 @@
        padding-top: 3px;
        font-size: 25px;
      }
-     ul .checked{
+     .checked{
         text-decoration: line-through;
         background-color: lightgreen;
         transition: .2s;
      }
+    
     </style>
     <title>Document</title>
  
 </head>
-<body>
+<body onload="displaylist()">
       <div class="container">
-        <input type="text" placeholder="Press Enter to add Text" class="input">
-       <ul></ul>
+        <input type="text" placeholder="Press Enter to add Text" id="input">
+       <ul id="list"></ul>
       </div>
 
 
@@ -90,29 +91,76 @@
 
 
 </body>
-  <script src="https://example.com/fontawesome/v6.3.0/js/fontawesome.js" data-auto-replace-svg="nest"></script>
-  <script src="https://example.com/fontawesome/v6.3.0/js/solid.js"></script>
-  <script src="https://example.com/fontawesome/v6.3.0/js/brands.js"></script>
-
+<script src="https://example.com/fontawesome/v6.3.0/js/fontawesome.js" data-auto-replace-svg="nest"></script>
+<script src="https://example.com/fontawesome/v6.3.0/js/solid.js"></script>
+<script src="https://example.com/fontawesome/v6.3.0/js/brands.js"></script>
 <script src="jquery-3.6.3.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
+
+ <script>
+    let input = document.getElementById('input');
+    console.log(input);
+    let list=document.getElementById('list');
+   
+
     
-    $('.input').change(function(){
-     var task=$(this).val();
-       $('ul').append('<li> <i class="fa fa-check" aria-hidden="true"></i></i>' + task +'<i class="fa fa-trash" aria-hidden="true"></i></li>');
-       $(this).val('');
+
+    
+    let tick=document.getElementsByClassName('fa-check');
+    
+
+    let ls=localStorage.getItem('todo');
+    let todo=ls?JSON.parse(ls):[];
+    
+    input.addEventListener('change', (e)=>{
+        e.preventDefault();
+        
+        let inputdata=input.value.trim();
+
+        if(inputdata!==''){
+        todo.push(inputdata);
+
+
+        localStorage.setItem('todo',JSON.stringify(todo));
+
+        input.value='';
+
+        displaylist();
+        }
+
+
     });
- });
 
-$('ul').on('click','.fa-trash',function(){
-    $(this).parent('li').fadeOut(200);
-});
+    function displaylist()
+    {
+        list.innerHTML  = '';
 
-$('ul').on('click','.fa-check',function(){
+        for(var i=0; i<todo.length; i++)
+        {
+        
+        list.innerHTML+=`<li id="listitems" > <i class="fa fa-check" id="complete"  aria-hidden="true" ></i> ${todo[i]} <i class="fa fa-trash" aria-hidden="true" onclick="deletetask(${i})"></i></li>`;
+        
+        }
+    }
+
+    var trash =document.getElementsByClassName("fa-trash");
+
+
+    function deletetask(pos){
+console.log("Deleting");
+      todo=todo.filter((item, index) => index != pos);
+    localStorage.setItem('todo',JSON.stringify(todo));
+    console.log(JSON.stringify(todo));
+    
+    displaylist();
+    }
+
+
+
+    $('ul').on('click','.fa-check',function(){
     $(this).parent('li').toggleClass('checked');
 });
 
 
-</script>
+
+ </script>
 </html>
